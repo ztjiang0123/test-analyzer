@@ -1,11 +1,10 @@
-"""Order processing module."""
+"""Order processing module (compatibility re-export).
 
+The order logic lives in :mod:`orders`. This module re-exports it so existing
+``orders_copy.apply_discount`` callers keep working without holding a second,
+drifting copy of the implementation.
+"""
 
-def total(items):
-    """Compute the total price of a list of items."""
-    return sum(i.price for i in items)
+from orders import apply_discount, total
 
-
-def apply_discount(items, percent):
-    subtotal = sum(i.price for i in items)
-    return subtotal - (subtotal * percent / 100)
+__all__ = ["apply_discount", "total"]
